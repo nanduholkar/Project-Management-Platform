@@ -1,0 +1,28 @@
+{
+  "name": "project-management",
+  "version": "1.0.0",
+  "description": "a project management application for begineers",
+  "keywords": [
+    "backend",
+    "API",
+    "creation"
+  ],
+  "homepage": "https://github.com/nanduholkar/Project-Management-Platform#readme",
+  "bugs": {
+    "url": "https://github.com/nanduholkar/Project-Management-Platform/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nanduholkar/Project-Management-Platform.git"
+  },
+  "license": "ISC",
+  "author": "nandkumar holkar",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "devDependencies": {
+    "prettier": "3.8.2"
+  }
+}

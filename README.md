@@ -1,4 +1,5 @@
 # My Project
+
 # 🚀 Project Camp Backend
 
 A powerful and scalable **RESTful API** for managing projects, teams, tasks, and collaboration efficiently.
@@ -11,21 +12,21 @@ A powerful and scalable **RESTful API** for managing projects, teams, tasks, and
 
 It enables teams to:
 
-* Organize projects
-* Assign tasks & subtasks
-* Manage team members
-* Maintain project notes
-* Attach files to tasks
+- Organize projects
+- Assign tasks & subtasks
+- Manage team members
+- Maintain project notes
+- Attach files to tasks
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Backend:** Node.js, Express.js
-* **Database:** MongoDB
-* **Authentication:** JWT (Access + Refresh Tokens)
-* **File Uploads:** Multer
-* **Other:** CORS, Middleware, REST API Architecture
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Authentication:** JWT (Access + Refresh Tokens)
+- **File Uploads:** Multer
+- **Other:** CORS, Middleware, REST API Architecture
 
 ---
 
@@ -33,57 +34,57 @@ It enables teams to:
 
 ### 👤 Authentication & Authorization
 
-* User Registration & Login
-* Email Verification
-* JWT-based Authentication
-* Password Reset / Change
-* Role-Based Access Control
+- User Registration & Login
+- Email Verification
+- JWT-based Authentication
+- Password Reset / Change
+- Role-Based Access Control
 
 ---
 
 ### 📁 Project Management
 
-* Create, update, delete projects
-* View project details
-* Manage project lifecycle
+- Create, update, delete projects
+- View project details
+- Manage project lifecycle
 
 ---
 
 ### 👥 Team Management
 
-* Add/remove members
-* Assign roles (Admin, Project Admin, Member)
-* Role-based permissions
+- Add/remove members
+- Assign roles (Admin, Project Admin, Member)
+- Role-based permissions
 
 ---
 
 ### ✅ Task Management
 
-* Create & assign tasks
-* Update task status (Todo → In Progress → Done)
-* Attach files to tasks
-* Track progress
+- Create & assign tasks
+- Update task status (Todo → In Progress → Done)
+- Attach files to tasks
+- Track progress
 
 ---
 
 ### 🔹 Subtasks
 
-* Create subtasks under tasks
-* Mark completion
-* Manage subtask lifecycle
+- Create subtasks under tasks
+- Mark completion
+- Manage subtask lifecycle
 
 ---
 
 ### 📝 Notes
 
-* Add and manage project notes
-* Admin-controlled access
+- Add and manage project notes
+- Admin-controlled access
 
 ---
 
 ### ❤️ Health Check
 
-* API status endpoint for monitoring
+- API status endpoint for monitoring
 
 ---
 
@@ -153,20 +154,20 @@ DELETE /api/v1/notes/:projectId/n/:noteId
 
 ## 🔒 Security Features
 
-* JWT Authentication
-* Role-based Authorization
-* Email Verification
-* Secure Password Reset
-* Input Validation
-* File Upload Protection
+- JWT Authentication
+- Role-based Authorization
+- Email Verification
+- Secure Password Reset
+- Input Validation
+- File Upload Protection
 
 ---
 
 ## 📂 File Handling
 
-* Multiple file uploads per task
-* Stored securely with metadata
-* MIME type & size validation
+- Multiple file uploads per task
+- Stored securely with metadata
+- MIME type & size validation
 
 ---
 
@@ -212,10 +213,10 @@ npm run dev
 
 ## 📊 Future Enhancements
 
-* Real-time notifications (WebSockets)
-* Activity logs
-* Project analytics dashboard
-* Integration with third-party tools
+- Real-time notifications (WebSockets)
+- Activity logs
+- Project analytics dashboard
+- Integration with third-party tools
 
 ---
 
@@ -229,7 +230,7 @@ Contributions are welcome! Feel free to fork and submit pull requests.
 
 For any queries or collaboration:
 
-* GitHub: https://github.com/nanduholkar
+- GitHub: https://github.com/nanduholkar
 
 ---
 
