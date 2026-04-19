@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 
+
 const app = express()
 // Basic Configuration 
 app.use(express.json({limit: "16kb"}))
@@ -16,7 +17,16 @@ app.use(cors({
 
 }))
 
+
+// Import the routes
+
+import healthCheckRouter from "./routes/healthcheck.routes.js";
+app.use("/api/v1/healthcheck", healthCheckRouter)
+
+
 app.get("/", (req, res) =>{
     res.send('welcome to basecampy')
 })
+
+console.log("MONGO_URI:", process.env.MONGO_URI);
 export default app;
