@@ -15,7 +15,7 @@ const sendEmail = async(options) =>{
 
     const transporter = nodemailer.createTransport({
         host: process.env.MAILTRAP_SMTP_HOST,
-        port: process.env.MAILTRAP_SMTP_PORT,
+        port: Number(process.env.MAILTRAP_SMTP_PORT),
         auth:{
             user : process.env.MAILTRAP_SMTP_USER,
             pass: process.env.MAILTRAP_SMTP_PASS
@@ -23,7 +23,7 @@ const sendEmail = async(options) =>{
     })
     const mail = {
         from : 'mail.taskmanager@example.com',
-        to: options.mail,
+        to: options.email,
         subject:options.subject,
         text : emailTextual,
         html: emailHtml
@@ -34,7 +34,7 @@ const sendEmail = async(options) =>{
     }catch(error){
         console.error("Email Services failed silently. Make sure that you have provided your MAILTRIP CREDENTIALS in .env file")
         console.error("Error: ",error)
-    }
+    } 
 }
 
 

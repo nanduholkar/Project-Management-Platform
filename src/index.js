@@ -7,6 +7,7 @@ dotenv.config({
 
 import app from "./app.js"
 import connectDB from "./db/index.js"
+console.log("Loaded MONGO_URI:", process.env.MONGO_URI);
 
 
 
