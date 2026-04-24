@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-import brcypt from "bcrypt"
+import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import crypto from "crypto";
 
@@ -48,10 +48,10 @@ const userSchema = new Schema(
         refreshToken : {
             type : String
         },
-        forgetPassowardToken: {
+        forgotPasswordToken: {
             type : String
         }, 
-        forgetPassowardExpiry : {
+        forgotPasswordExpiry : {
             type : Date
         },
         emailVerificationToken : {
@@ -70,13 +70,13 @@ const userSchema = new Schema(
 userSchema.pre("save", async function(){
     if(!this.isModified("password")) return 
 
-    this.password = await brcypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     
 })
 
 
 userSchema.methods.isPasswordCorrect = async function (password){
-    return await brcypt.compare(password, this.password)
+    return await bcrypt.compare(password, this.password)
 }
 
 userSchema.methods.generateAccessToken = function(){
@@ -102,14 +102,14 @@ userSchema.methods.generateRefreshToken = function(){
 }
 
 userSchema.methods.generateTemporaryToken = function(){
-    const unHashedTokens=crypto.randomBytes(20).toString("hex")
+    const unHashedToken=crypto.randomBytes(20).toString("hex")
     const hashedToken = crypto
     .createHash("sha256")
-    .update(unHashedTokens)
+    .update(unHashedToken)
     .digest("hex")
     
-    const tokenExpiry = Date.now()+(20*60*1000) // 20min
-    return {unHashedTokens, hashedToken, tokenExpiry}
+    const tokenExpiry = new Date(Date.now() + 20 * 60 * 1000)
+    return {unHashedToken, hashedToken, tokenExpiry}
 
 }
 
