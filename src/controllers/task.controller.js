@@ -1,7 +1,7 @@
 import { User } from "../models/user.models.js";
 import { Project } from "../models/project.models.js";
 import { Task } from "../models/task.models.js";
-import { subtask } from "../models/subtask.models.js";
+import { SubTask } from "../models/subtask.models.js";
 
 import { ApiResponse } from "../utils/api-response.js";
 import { ApiError } from "../utils/api-error.js";
@@ -35,7 +35,7 @@ const getTasks = asyncHandler(async (req, res) => {
 
 const createTask = asyncHandler(async (req, res) => {
 
-    const {title, description} = req.body
+    const {title, description, assignedTo, status} = req.body
     const {projectId} = req.params
 
     const project = await Project.findById(projectId)
@@ -58,7 +58,7 @@ const createTask = asyncHandler(async (req, res) => {
         description,
         project: new mongoose.Types.ObjectId(projectId),
         assignedTo: assignedTo ? new mongoose.Types.ObjectId(assignedTo): undefined,
-        status,
+        status: status,
         assignedBy : new mongoose.Types.ObjectId(req.user._id) ,
         attachments
 
@@ -87,10 +87,13 @@ const getTaskById = asyncHandler(async (req, res) => {
                 as: "assignedTo", 
                 pipeline: [
                     {
-                        _id: 1,
-                        username: 1,
-                        fullName : 1,
-                        avatar: 1
+                        $project:{
+
+                            _id: 1,
+                            username: 1,
+                            fullName : 1,
+                            avatar: 1
+                        }
                     }
                 ]
             }

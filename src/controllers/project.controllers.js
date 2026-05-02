@@ -1,6 +1,6 @@
 import { User } from "../models/user.models.js";
 import { Project } from "../models/project.models.js";
-import { ProjectMember } from "../models/project.models.js";
+import { ProjectMember } from "../models/projectmember.models.js";
 
 import { ApiResponse } from "../utils/api-response.js";
 import { ApiError } from "../utils/api-error.js";
@@ -8,7 +8,7 @@ import { asyncHandler } from "../utils/async-handler.js";
 import mongoose, { mongo } from "mongoose";
 
 import { AvailableUserRole, UserRolesEnum } from "../utils/constants.js";
-import { pipeline } from "nodemailer/lib/xoauth2/index.js";
+
 
 const getProjects = asyncHandler(async (req, res) => {
 
@@ -20,49 +20,26 @@ const getProjects = asyncHandler(async (req, res) => {
         },
         {
             $lookup: {
-                from : "projects",
+                from: "projects",
                 localField: "project",
                 foreignField: "_id",
-                as: "projects",
-                pipeline:[
-                    {
-                        $lookup:{
-                            from : "projectmembers",
-                            localField: "_id",
-                            foreignField: "project",
-                            as: "projectmembers"
-                        }
-                    },
-                    {
-                        $addFields: {
-                            members: {
-                                $size: "$projectmembers"
-                            }
-                        }
-                    },
-
-                ]
-
+                as: "project"
             }
         },
         {
-            $unwind: "$project"
+            $addFields: {
+                project: { $arrayElemAt: ["$project", 0] }
+            }
         },
         {
-            $project : {
-                project:{
-                    _id: 1,
-                    name: 1,
-                    description:1,
-                    members:1,
-                    createdAt: 1,
-                    createdBy: 1
-                },
-                role: 1,
-                _id: 0
+            $project: {
+                _id: "$project._id",
+                name: "$project.name",
+                description: "$project.description",
+                role: "$role",
+                createdAt: "$project.createdAt"
             }
         }
-
     ])
     return res
       .status(200)
@@ -102,8 +79,8 @@ const createproject = asyncHandler(async (req, res) =>{
     })
 
     await ProjectMember.create({
-        user: new mongoose.Types.ObjectId(req.user._id),
-        project : new mongoose.Types.ObjectId(project._id),
+        user: req.user._id,
+        project : project._id,
         role : UserRolesEnum.ADMIN
     })
 
@@ -194,21 +171,21 @@ const addMembersToProject = asyncHandler(async (req, res) =>{
         throw new ApiError(404, "User does not exists")
     }
 
-    await ProjectMember.findByIdAndUpdate(
-        {
-            user: new mongoose.Types.ObjectId(user._id),
-            project: new mongoose.Types.ObjectId(projectId)
-        },
-        {
-            user: new mongoose.Types.ObjectId(user._id),
-            project: new mongoose.Types.ObjectId(projectId),
+    await ProjectMember.findOneAndUpdate(
+    {
+        user: new mongoose.Types.ObjectId(user._id),
+        project: new mongoose.Types.ObjectId(projectId)
+    },
+    {
+        $set: {
             role: role
-        },
-        {
-            new: true, 
-            upsert: true
         }
-    )
+    },
+    {
+        new: true,
+        upsert: true
+    }
+);
 
     return res
       .status(200)
@@ -311,7 +288,7 @@ const updateMemberRole  = asyncHandler(async (req, res) =>{
     return res
       .status(200)
       .json(
-        new ApiResponse(200, projectMembers, "Project member updated successfully")
+        new ApiResponse(200, projectMember, "Project member updated successfully")
     )
 })
 
